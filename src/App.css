@@ -1,0 +1,14 @@
+.App{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  height: 100%;
+  padding: 1.5rem 10rem;
+}
+@media screen and (max-width:992px){
+  .App {
+      padding: 1.5rem 1rem;
+  }
+}
