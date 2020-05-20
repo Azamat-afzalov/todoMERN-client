@@ -4,13 +4,13 @@ import Todo from "./Todo";
 import "./Todos.css";
 
 const TodoList = ({todos, deleteTodo,checkTodo, dispatch}) => {
-    console.log('TodoList rendering')
+    // console.log('TodoList rendering');
     return (
         <ul className='TodoList-ul'>
             {todos.map((todo) => (
                 <Todo
-                    key={todo.id}
-                    id={todo.id}
+                    key={todo._id}
+                    id={todo._id}
                     isCompleted={todo.isCompleted}
                     dispatch={dispatch}
                 >

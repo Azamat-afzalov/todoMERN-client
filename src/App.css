@@ -7,6 +7,27 @@
   height: 100%;
   padding: 1.5rem 10rem;
 }
+.App-Loading-spinner {
+	pointer-events: none;
+	width: 2.5em;
+	height: 2.5em;
+	border: 0.4em solid transparent;
+	border-color: #eee;
+  border-top-color: #FF719A;
+  border-bottom-color: #FFE29F;
+  border-left-color: rgb(45, 172, 223) ;
+  border-right-color: rgb(143, 74, 192);
+  /* linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%); */
+	border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+  margin-top: 5rem;
+}
+
+@keyframes loadingspin{
+	100% {
+			transform: rotate(360deg)
+	}
+}
 @media screen and (max-width:992px){
   .App {
       padding: 1.5rem 1rem;

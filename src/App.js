@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer , useState} from 'react';
 import reducer from './reducer/reducer';
 import TodoList from './components/TodoList';
 import TodoAddForm from './components/TodoAddForm';
@@ -12,14 +12,47 @@ const TODOS = [
 ];
 
 function App() {
-  // console.log('App rendering')
+  // console.log('App rendering');
+  const [isLoading, setIsLoading] = useState(true);
   const [state, dispatch] = useReducer(reducer, {todos : TODOS});
-  useEffect(() => { document.title = "Todo app"}, []);
+  const graphqlQuery = {
+    query : `
+      {
+        getTodos {
+            todos{
+            _id
+            title
+            isCompleted
+        }
+        }
+      }
+    `
+  };
+  useEffect(() => {
+    document.title = "Todo app";
+    console.log("EFFECT HOOK")
+    fetch('http://localhost:5000/graphql',{
+      method : "POST",
+      body : JSON.stringify(graphqlQuery),
+      headers : {
+        'Content-Type' : 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(({data}) => {
+      dispatch({type : "SET_TODOS", payload:data.getTodos.todos});
+      setIsLoading(false);
+    })
+    .catch(err => console.log(err));
+  }, []);
 
   return (
     <div className="App">
       <TodoAddForm dispatch={dispatch}/>
-      <TodoList todos={state.todos} dispatch={dispatch}/>
+      { isLoading ? <div className="App-Loading-spinner"/>:
+      <TodoList todos={state.todos} dispatch={dispatch}/>}
     </div>
   );
 }

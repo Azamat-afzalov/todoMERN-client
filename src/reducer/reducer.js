@@ -20,6 +20,10 @@ export default function reducer(state , action){
                     isCompleted: !todo.isCompleted
                 } : todo )
             };
+        case "SET_TODOS" :
+            return {
+                todos: [...action.payload]
+            }
         default:
             return state;
     }

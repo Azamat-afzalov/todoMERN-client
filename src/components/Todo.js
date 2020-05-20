@@ -10,7 +10,7 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
         dispatch({type : 'DELETE_TODO',payload: id});
     },[id,dispatch]);
     const checkHandler = useCallback(() => {
-        dispatch({type : "CHECK_TODO" ,payload :id})
+        dispatch({type : "CHECK_TODO" , payload :id})
     },[id,dispatch]);
 
     return (
