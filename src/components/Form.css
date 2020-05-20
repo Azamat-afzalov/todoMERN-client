@@ -38,6 +38,7 @@
     border-radius: 16px;
     font-weight: 600;
     background: indianred;
+    outline: none;
 }
 
 .TodoAddForm-clearInput{
