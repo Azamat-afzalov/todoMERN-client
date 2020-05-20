@@ -1,4 +1,5 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useReducer} from 'react';
+import reducer from './reducer/reducer';
 import TodoList from './components/TodoList';
 import TodoAddForm from './components/TodoAddForm';
 import './App.css';
@@ -11,41 +12,15 @@ const TODOS = [
 ];
 
 function App() {
-  console.log('App rendering')
-  const [todos, setTodos] = useState(TODOS);
+  // console.log('App rendering')
+  const [state, dispatch] = useReducer(reducer, {todos : TODOS});
   useEffect(() => { document.title = "Todo app"}, []);
-
-  const addTodo = useCallback((todo) => {
-    setTodos(prevState => (
-        [ {
-          title : todo,
-          id: Math.random() ,
-          isCompleted : false
-          },
-          ...prevState
-        ]
-      )
-    );
-  },[]);
-
-  const deleteTodo = useCallback((id) => {
-    setTodos(prevState => (
-      prevState.filter(todo => todo.id !== id)
-    ))
-  },[]);
-
-  const checkTodo = useCallback((id) => {
-    setTodos(prevState => (
-      prevState.map(todo => todo.id === id ? {...todo, isCompleted: !todo.isCompleted} : todo)
-    ))
-  },[])
 
   return (
     <div className="App">
-      <TodoAddForm addTodo={addTodo}/>
-      <TodoList todos={todos} deleteTodo={deleteTodo} checkTodo={checkTodo}/>
+      <TodoAddForm dispatch={dispatch}/>
+      <TodoList todos={state.todos} dispatch={dispatch}/>
     </div>
   );
 }
-
 export default App;

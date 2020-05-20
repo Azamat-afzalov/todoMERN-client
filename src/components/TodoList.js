@@ -3,23 +3,22 @@ import Todo from "./Todo";
 
 import "./Todos.css";
 
-const TodoList = ({todos, deleteTodo,checkTodo}) => {
+const TodoList = ({todos, deleteTodo,checkTodo, dispatch}) => {
     console.log('TodoList rendering')
-return (
-    <ul className='TodoList-ul'>
-        {todos.map((todo) => (
-            <Todo
-                key={todo.id}
-                id={todo.id}
-                isCompleted={todo.isCompleted}
-                deleteTodo={deleteTodo}
-                checkTodo={checkTodo}
-            >
-                {todo.title}
-            </Todo>
-        ))}
-    </ul>
-);
+    return (
+        <ul className='TodoList-ul'>
+            {todos.map((todo) => (
+                <Todo
+                    key={todo.id}
+                    id={todo.id}
+                    isCompleted={todo.isCompleted}
+                    dispatch={dispatch}
+                >
+                    {todo.title}
+                </Todo>
+            ))}
+        </ul>
+    );
 };
 
 export default TodoList;

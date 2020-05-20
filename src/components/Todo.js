@@ -3,14 +3,15 @@ import {FiTrash} from 'react-icons/fi';
 import {MdDone} from 'react-icons/md';
 import './Todos.css';
 
-const Todo = React.memo(({id, children, isCompleted , deleteTodo , checkTodo}) => {
-    console.log(`Todo ${children} is rendering`)
+const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
+    // console.log(`Todo ${children} is rendering`);
+    // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
     const deleteHandler = useCallback(() => {
-        deleteTodo(id);
-    },[id,deleteTodo]);
+        dispatch({type : 'DELETE_TODO',payload: id});
+    },[id,dispatch]);
     const checkHandler = useCallback(() => {
-        checkTodo(id);
-    },[id, checkTodo])
+        dispatch({type : "CHECK_TODO" ,payload :id})
+    },[id,dispatch]);
 
     return (
         <li
