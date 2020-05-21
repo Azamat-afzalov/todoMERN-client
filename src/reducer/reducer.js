@@ -1,12 +1,12 @@
+
 export default function reducer(state , action){
     switch (action.type) {
-        case "ADD_TODO":
-            console.log(state);
+        case "ADD_TODO_SUCCESS":
             return {
                 todos: [
-                    {   id : Math.random() ,
-                        title : action.payload,
-                        isCompleted: false
+                    {   _id : action.payload._id ,
+                        title : action.payload.title,
+                        isCompleted: action.payload.isCompleted
                     },
                     ...state.todos
                 ]
@@ -20,9 +20,20 @@ export default function reducer(state , action){
                     isCompleted: !todo.isCompleted
                 } : todo )
             };
-        case "SET_TODOS" :
+        case "FETCH_TODOS_SUCCESS" :
             return {
-                todos: [...action.payload]
+                error: '',
+                todos: [...action.payload.todos],
+                isLoading : action.payload.isLoading
+            }
+        case "FETCH_TODOS_FAILED":
+            return {
+                errors : action.payload.errors,
+                isLoading : action.payload.isLoading
+            }
+        case "ADD_TODO_FAILED":
+            return {
+                errors : action.payload
             }
         default:
             return state;

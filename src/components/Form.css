@@ -15,7 +15,7 @@
 
 .TodoAddForm-input{
     width: 100%;
-    padding: 8px 16px;
+    padding: 1rem;
     font-size: 1rem;
     height: 100%;
     background-color: rgb(228, 228, 228);
@@ -30,7 +30,7 @@
 .TodoAddForm-button{
     position: relative;
     flex-basis: 18%;
-    padding: 16px;
+    padding: 1rem;
     font-size: 1rem;
     cursor: pointer;
     border: none;

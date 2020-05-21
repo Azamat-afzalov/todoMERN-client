@@ -1,14 +1,17 @@
-import React, {useCallback} from 'react';
+import React, {useCallback } from 'react';
 import {FiTrash} from 'react-icons/fi';
 import {MdDone} from 'react-icons/md';
 import './Todos.css';
 
 const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
-    // console.log(`Todo ${children} is rendering`);
+    //console.log(`Todo ${children} is rendering`);
     // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
-    const deleteHandler = useCallback(() => {
+
+    const deleteHandler = useCallback((e) => {
+        e.preventDefault();
         dispatch({type : 'DELETE_TODO',payload: id});
     },[id,dispatch]);
+
     const checkHandler = useCallback(() => {
         dispatch({type : "CHECK_TODO" , payload :id})
     },[id,dispatch]);

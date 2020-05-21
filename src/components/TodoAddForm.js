@@ -12,11 +12,45 @@ const TodoAddForm = React.memo(({dispatch}) => {
     const submitHandler = useCallback((e) => {
         e.preventDefault()
         if(input){
-            dispatch({type : "ADD_TODO", payload:input})
+            async function addTodo() {
+                const graphqlQuery = {
+                    query : `
+                        mutation {
+                            createTodo(input : { title : "${input}"}){
+                                todo {
+                                    _id
+                                    title
+                                    isCompleted
+                                }
+                            }
+                        }
+                    `
+                }
+                try {
+                    const response = await fetch('http://localhost:5000/graphql' , {
+                        method : "POST",
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        },
+                        body: JSON.stringify(graphqlQuery)
+                    });
+
+                    const {data,errors} = await response.json();
+                    if(errors){
+                        throw errors;
+                    }
+                    const {todo} = data.createTodo;
+                    console.log(todo)
+                    dispatch({type : "ADD_TODO_SUCCESS",  payload :{...todo }})
+                } catch (errors) {
+                    dispatch({type : "ADD_TODO_FAILED", payload:errors});
+                }
+
+            }
+            addTodo();
             setInput('');
         }
     },[input,dispatch]);
-
     return (
         <form className='TodoAddForm-form' autoComplete="off" onSubmit={submitHandler}>
             <div className="TodoAddForm-input-container">
