@@ -12,7 +12,10 @@ export default function reducer(state , action){
                 ]
             }
         case "DELETE_TODO":
-            return { todos: state.todos.filter(todo => todo.id !== action.payload)};
+            console.log(action.payload)
+            return {
+                todos: state.todos.filter(todo => todo.id !== action.payload)
+            };
         case "CHECK_TODO" :
             return {
                 todos : state.todos.map(todo => todo.id === action.payload ? {
@@ -32,6 +35,10 @@ export default function reducer(state , action){
                 isLoading : action.payload.isLoading
             }
         case "ADD_TODO_FAILED":
+            return {
+                errors : action.payload
+            }
+        case "DELETE_TODO_FAILED":
             return {
                 errors : action.payload
             }

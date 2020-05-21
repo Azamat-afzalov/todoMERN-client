@@ -4,8 +4,8 @@
   padding: 0;
   box-sizing: border-box;
 }
-#root, html{
-  height: 100%;
+html{
+  min-height: 100%;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,18 +15,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #ececec;
   font-family: 'Nunito', sans-serif;
-  height: 100%;
-  /* background: #4568DC;  fallback for old browsers */
-  /* background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);
-  background: linear-gradient(to right, #B06AB3, #4568DC);
-  background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%); */
+  min-height: 100%;
   background: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);
-  background-repeat: re;
   background-size: contain;
 }
-html canvas{
+/* html canvas{
   display: none;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

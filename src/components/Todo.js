@@ -8,8 +8,38 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
     // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
 
     const deleteHandler = useCallback((e) => {
-        e.preventDefault();
-        dispatch({type : 'DELETE_TODO',payload: id});
+        async function deleteTodo() {
+            const graphqlQuery = {
+                query : `
+                    mutation{
+                        deleteTodo(id : "${id}"){
+                            _id
+                        }
+                    }
+                `
+            }
+            try {
+                const response = await fetch('http://localhost:5000/graphql' , {
+                    method : "POST",
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify(graphqlQuery)
+                });
+                const {data,errors} = await response.json();
+                if(errors){
+                    throw errors;
+                }
+                console.log(data);
+                const {_id} = data.deleteTodo;
+                // console.log(todo)
+                dispatch({type : "DELETE_TODO_SUCCESS", payload :_id })
+            } catch (errors) {
+                dispatch({type : "DELETE_TODO_FAILED", payload: errors});
+            }
+
+        }
+        deleteTodo();
     },[id,dispatch]);
 
     const checkHandler = useCallback(() => {
