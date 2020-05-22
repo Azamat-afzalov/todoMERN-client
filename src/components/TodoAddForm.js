@@ -40,7 +40,6 @@ const TodoAddForm = React.memo(({dispatch}) => {
                         throw errors;
                     }
                     const {todo} = data.createTodo;
-                    console.log(todo)
                     dispatch({type : "ADD_TODO_SUCCESS",  payload :{...todo }})
                 } catch (errors) {
                     dispatch({type : "ADD_TODO_FAILED", payload:errors});
@@ -51,6 +50,7 @@ const TodoAddForm = React.memo(({dispatch}) => {
             setInput('');
         }
     },[input,dispatch]);
+
     return (
         <form className='TodoAddForm-form' autoComplete="off" onSubmit={submitHandler}>
             <div className="TodoAddForm-input-container">

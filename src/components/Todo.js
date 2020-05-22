@@ -4,11 +4,11 @@ import {MdDone} from 'react-icons/md';
 import './Todos.css';
 
 const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
-    //console.log(`Todo ${children} is rendering`);
+    // console.log(`Todo ${children} is rendering`);
     // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
 
-    const deleteHandler = useCallback((e) => {
-        async function deleteTodo() {
+    const deleteHandler =  useCallback(() =>{
+        (async function () {
             const graphqlQuery = {
                 query : `
                     mutation{
@@ -19,6 +19,7 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
                 `
             }
             try {
+                // dispatch({type : "DELETE_TODO_SUCCESS", payload :id });
                 const response = await fetch('http://localhost:5000/graphql' , {
                     method : "POST",
                     headers : {
@@ -30,20 +31,48 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
                 if(errors){
                     throw errors;
                 }
-                console.log(data);
                 const {_id} = data.deleteTodo;
-                // console.log(todo)
-                dispatch({type : "DELETE_TODO_SUCCESS", payload :_id })
+                dispatch({type : "DELETE_TODO_SUCCESS", payload : _id });
             } catch (errors) {
                 dispatch({type : "DELETE_TODO_FAILED", payload: errors});
             }
-
-        }
-        deleteTodo();
-    },[id,dispatch]);
+        })()
+    },[id,dispatch])
 
     const checkHandler = useCallback(() => {
-        dispatch({type : "CHECK_TODO" , payload :id})
+        (async function() {
+            const graphqlQuery = {
+                query : `
+                    mutation {
+                        toggleComplete(id:"${id}") {
+                            _id
+                        }
+                    }
+                `
+            }
+            try {
+                // dispatch({type:"CHECK_TODO_SUCCESS",payload: id});
+                // console.log("REQ");
+                const response = await fetch('http://localhost:5000/graphql', {
+                    method : "POST",
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+                    body : JSON.stringify(graphqlQuery)
+                });
+                const {data,errors} = await response.json();
+                if(errors){
+                    throw errors;
+                }
+                const {_id} = data.toggleComplete;
+                dispatch({type:"CHECK_TODO_SUCCESS",payload: _id})
+            }catch(errors){
+                console.log(errors)
+                dispatch({type:"CHECK_TODO_FAILED", payload: errors})
+            }
+
+        })()
+
     },[id,dispatch]);
 
     return (

@@ -8,8 +8,7 @@ import './App.css';
 
 function App() {
   // console.log('App rendering');
-  // const [isLoading, setIsLoading] = useState(true);
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer,{
     errors : {},
     todos : [],
     isLoading : true
@@ -40,7 +39,6 @@ function App() {
           }
         });
         const {data,errors} = await res.json();
-
         if (errors) {
           throw errors;
         }
@@ -64,9 +62,10 @@ function App() {
     fetchData();
   }, []);
 
+
+
   return (
     <div className="App">
-
       <TodoAddForm dispatch={dispatch}/>
       { state.isLoading && <div className="App-Loading-spinner"/>}
       {!state.isLoading && state.errors ? (
@@ -79,8 +78,11 @@ function App() {
           ))
         }
       </div>) :
-      <TodoList todos={state.todos} dispatch={dispatch}/>}
-
+      <TodoList
+        todos={state.todos}
+        dispatch={dispatch}
+        // deleteTodo={deleteTodo}
+      />}
     </div>
   );
 }
