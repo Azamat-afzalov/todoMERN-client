@@ -22,4 +22,4 @@ const TodoList = ({todos, deleteTodo, checkTodo, dispatch}) => {
     );
 };
 
-export default TodoList;
+export default React.memo(TodoList);
