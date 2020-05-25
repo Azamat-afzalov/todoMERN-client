@@ -1,0 +1,61 @@
+.Auth-form-container{
+    width: 100%;
+    margin: 5rem auto;
+    max-width: 700px;
+    /* height: 500px; */
+    display: flex;
+    background-color: rgba(55, 66, 87, 0.9);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(55, 66, 87, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+}
+.Auth-form-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+}
+.Auth-form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    /* background-color: rgb(55, 66, 87, 0.9); */
+    border-radius: 1rem;
+    /* box-shadow: 0 0 10px #fff6f6; */
+}
+.Auth-form  button {
+    margin-top: 1rem;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    box-shadow: 0 0 5px indianred;
+    outline: none;
+}
+.Auth-form-input{
+    border: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    background: transparent;
+    outline: none;
+}
+
+.Auth-form-input:-webkit-autofill,
+.Auth-form-input:-webkit-autofill:hover,
+.Auth-form-input:-webkit-autofill:focus,
+.Auth-form-input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px rgba(55, 66, 87 , 0.92)  inset !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+@media screen and (max-width : 576px) {
+    .Auth-form-container {
+        padding: 0.5rem 1rem;
+    }
+    .Auth-form button {
+        width: 80%;
+        margin: 2rem auto;
+    }
+}

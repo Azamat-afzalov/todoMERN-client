@@ -1,0 +1,21 @@
+.Input-Box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.Input-Box label {
+    margin-bottom: 4px;
+    color: #eee;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.Input{
+    font-family: 'Nunito',sans-serif;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    height: 100%;
+}

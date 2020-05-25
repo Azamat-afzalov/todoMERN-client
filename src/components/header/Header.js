@@ -6,7 +6,7 @@ const Header = () => {
     console.log('Header renders');
     return (
         <header className='Header'>
-            <Link className="logo" to="/" className="Logo">Planner</Link>
+            <Link to="/" className="Logo">Planner</Link>
             <ul className="Header-ul">
                 <li className="Header-li">
                     <Link to="/login" className="Header-link">Login</Link>

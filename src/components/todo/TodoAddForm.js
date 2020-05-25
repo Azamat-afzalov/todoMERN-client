@@ -1,5 +1,6 @@
 import React, {useState, useCallback } from 'react';
 import Button from '../uiElements/Button';
+import Input from '../uiElements/Input';
 import './Form.css';
 
 const TodoAddForm = React.memo(({dispatch}) => {
@@ -54,14 +55,20 @@ const TodoAddForm = React.memo(({dispatch}) => {
     return (
         <form className='TodoAddForm-form' autoComplete="off" onSubmit={submitHandler}>
             <div className="TodoAddForm-input-container">
-                <input
+                <Input type="text"
+                    className="TodoAddForm-input"
+                    name="todo"
+                    placeholder="What is your plans ?"
+                    value={input}
+                    onChange={inputHandler}/>
+                {/* <input
                     type="text"
                     className="TodoAddForm-input"
                     name="todo"
                     placeholder="What is your plans ?"
                     value={input}
                     onChange={inputHandler}
-                />
+                /> */}
                 <span className='TodoAddForm-clearInput'>&times;</span>
             </div>
             <Button className="TodoAddForm-button" type='submit'>Add</Button>
