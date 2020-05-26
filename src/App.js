@@ -1,6 +1,8 @@
 import React, {useEffect, useReducer } from 'react';
 import {Switch,Route} from 'react-router-dom';
-import reducer from './reducer/reducer';
+import AuthContext from './context/AuthContext'
+import todoReducer from './reducer/todoReducer';
+import authReducer from './reducer/authReducer';
 import Header from './components/header/Header';
 import TodoList from './components/todo/TodoList';
 import TodoAddForm from './components/todo/TodoAddForm';
@@ -13,21 +15,27 @@ import './App.css';
 
 function App() {
 // console.log('App rendering');
-const [state, dispatch] = useReducer(reducer,{
+const [todoState, todoDispatch] = useReducer(todoReducer,{
     errors : {},
     todos : [],
     isLoading : true
 });
+const [authState, authDispatch] = useReducer(authReducer,{
+    isAuth : false,
+    userId : null,
+    token : null
+});
+
 useEffect(() => {
     const graphqlQuery = {
     query : `
         {
-        getTodos {
-            todos{
-            _id
-            title
-            isCompleted
-        }
+            getTodos {
+                todos{
+                _id
+                title
+                isCompleted
+            }
         }
         }
     `
@@ -36,7 +44,7 @@ useEffect(() => {
     // console.log("EFFECT HOOK")
     async function fetchData(){
     try {
-        const res = await fetch('http://localhost:5000/graphql',{
+        const res = await fetch('http://localhost:5000/graphql', {
         method : "POST",
         body : JSON.stringify(graphqlQuery),
         headers : {
@@ -47,7 +55,7 @@ useEffect(() => {
         if (errors) {
         throw errors;
         }
-        dispatch({
+        todoDispatch({
         type : "FETCH_TODOS_SUCCESS",
         payload : {
             todos :data.getTodos.todos ,
@@ -55,7 +63,7 @@ useEffect(() => {
         }
         })
     } catch (errors) {
-        dispatch({
+        todoDispatch({
         type : "FETCH_TODOS_FAILED",
         payload : {
             errors : errors,
@@ -67,43 +75,43 @@ useEffect(() => {
     fetchData();
 }, []);
 
-
 return (
-    <>
-    <Header/>
-    <Switch>
-        <Route path="/login" exact>
-            <Login/>
-        </Route>
-        <Route path="/signup" exact>
-            <Signup/>
-        </Route>
-        <Route path="/">
-            <div className="App">
-                <TodoAddForm dispatch={dispatch}/>
-                { state.isLoading && <LoadingSpinner/>}
-                {!state.isLoading && state.errors ? (
-                <div>
-                {
-                    state.errors.map(error => (
-                    <p key={error.message}>
-                        {error.message}
-                    </p>
-                    ))
-                }
-                </div>) :
-                <TodoList
-                todos={state.todos}
-                dispatch={dispatch}
-                // deleteTodo={deleteTodo}
-                />}
-            </div>
-        </Route>
-
-
-    </Switch>
-
-    </>
+    <AuthContext.Provider value={{
+        todoState,
+        authState,
+        authDispatch,
+        todoDispatch
+    }}>
+        <Header/>
+        <Switch>
+            <Route path="/login" exact>
+                <Login/>
+            </Route>
+            <Route path="/signup" exact>
+                <Signup/>
+            </Route>
+            <Route path="/">
+                <div className="App">
+                    <TodoAddForm dispatch={todoDispatch}/>
+                    { todoState.isLoading && <LoadingSpinner/>}
+                    {!todoState.isLoading && todoState.errors ? (
+                        <div>
+                        {
+                            todoState.errors.map(error => (
+                            <p key={error.message}>
+                                {error.message}
+                            </p>
+                            ))
+                        }
+                        </div>) :
+                    <TodoList
+                        todos={todoState.todos}
+                        dispatch={todoDispatch}
+                    />}
+                </div>
+            </Route>
+        </Switch>
+    </AuthContext.Provider>
 );
 }
 export default App;

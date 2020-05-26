@@ -1,4 +1,3 @@
-
 export default function reducer(state , action){
     switch (action.type) {
         case "FETCH_TODOS_SUCCESS" :

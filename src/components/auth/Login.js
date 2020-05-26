@@ -13,14 +13,6 @@ const Login = () => {
             <h2>Login</h2>
             <form onSubmit={handleSubmit(onSubmit)} className='Auth-form'>
                 <Input
-                    label='Username'
-                    id="username"
-                    type="text"
-                    name="username"
-                    ref={register}
-                    className='Auth-form-input'
-                />
-                <Input
                     label="Email"
                     id="email"
                     type="email"
