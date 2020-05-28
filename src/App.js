@@ -3,6 +3,7 @@ import {Switch,Route} from 'react-router-dom';
 import AuthContext from './context/AuthContext'
 import todoReducer from './reducer/todoReducer';
 import authReducer from './reducer/authReducer';
+import useAuth from './hooks/useAuth';
 import Header from './components/header/Header';
 import TodoList from './components/todo/TodoList';
 import TodoAddForm from './components/todo/TodoAddForm';
@@ -11,21 +12,19 @@ import Signup from './components/auth/Signup';
 import LoadingSpinner from './components/uiElements/LoadingSpinner';
 import './App.css';
 
-
-
 function App() {
-// console.log('App rendering');
-const [todoState, todoDispatch] = useReducer(todoReducer,{
+const { token, userId , login , logout} = useAuth();
+const [todoState, todoDispatch] = useReducer( todoReducer, {
     errors : {},
     todos : [],
     isLoading : true
 });
-const [authState, authDispatch] = useReducer(authReducer,{
+const [authState, authDispatch] = useReducer(authReducer, {
     isAuth : false,
-    userId : null,
-    token : null
+    userId :  null,
+    token :  null,
+    errors : null
 });
-
 useEffect(() => {
     const graphqlQuery = {
     query : `
@@ -75,12 +74,18 @@ useEffect(() => {
     fetchData();
 }, []);
 
+useEffect(() => {
+    authDispatch({ type:"SET_AUTH", payload : {
+        isAuth : !!token,
+        _id : userId,
+        token : token
+    }})
+}, [userId,token,login,logout])
+
 return (
     <AuthContext.Provider value={{
-        todoState,
         authState,
-        authDispatch,
-        todoDispatch
+        authDispatch
     }}>
         <Header/>
         <Switch>

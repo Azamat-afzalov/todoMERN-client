@@ -23,6 +23,9 @@
     align-items: center;
     margin-left: 1.5rem;
 }
+.Header-link{
+    cursor: pointer;
+}
 .Header-link::after{
     display: block;
     content: '';

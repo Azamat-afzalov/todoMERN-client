@@ -3,10 +3,20 @@ import "./Input.css";
 
 const Input = React.forwardRef(
 (
-    { type, name, className, placeholder, value, onChange, id, label, error },
-    ref
+    {
+        type,
+        name,
+        className,
+        placeholder,
+        value,
+        onChange,
+        id,
+        label,
+        error
+    },
+        ref
 ) => {
-    console.log(error);
+    // console.log(error);
     return (
     <div className="Input-Box">
         {label && <label htmlFor={id}>{label}</label>}

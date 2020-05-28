@@ -1,15 +1,21 @@
 import React , {useState , useContext} from 'react';
+import {useHistory} from 'react-router-dom';
 import authContext from '../../context/AuthContext';
+import useAuth from '../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import Button from '../uiElements/Button';
 import Input from '../uiElements/Input';
 import LoadingSpinner from '../uiElements/LoadingSpinner';
+import {MdErrorOutline} from 'react-icons/md';
 import './Auth.css';
 
 const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const history = useHistory();
     const {authState, authDispatch} = useContext(authContext);
+    const { login } = useAuth();
     const { register, handleSubmit, errors} = useForm();
+
     const onSubmit = async (formData) => {
         setIsLoading(true);
         const {username ,email, password} = formData;
@@ -36,27 +42,34 @@ const Signup = () => {
                 },
             });
             const {data,errors} = await fetchedData.json();
-            console.log(errors)
             if(errors){
                 throw errors;
             }
             const {_id , token} = data.createUser;
-            console.log(_id ,token);
-            authDispatch({type : "SIGNUP_SUCCESS", payload : { _id , token}});
+            authDispatch({type : "SIGNUP_SUCCESS", payload : { _id , token }});
+            login( _id, token);
             setIsLoading(false);
-        } catch (errors) {
-            console.log(errors);
-            authDispatch({type: "SIGNUP_FAILED" , payload : errors});
+            history.push('/');
+        } catch (error) {
+            console.log(error);
+            authDispatch({type: "SIGNUP_FAILED" , payload : error });
             setIsLoading(false);
         }
-
-        // console.log("ERRORS",errors)
     }
     return (
         <div className="Auth-form-container">
             <h2>Signup</h2>
             {isLoading && <LoadingSpinner/>}
+
             <form className="Auth-form" onSubmit={handleSubmit(onSubmit)}>
+                {authState.errors &&
+                    <div className="Auth-error-box">
+                    {
+                        authState.errors.map(err => (
+                        <p key={err.message}>{err.message}<MdErrorOutline/></p>
+                        ))
+                    }
+                </div>}
                 <Input
                     label='Username'
                     id="username"
@@ -90,7 +103,7 @@ const Signup = () => {
                     className='Auth-form-input'
                     error={errors.password ? errors.password.message : ''}
                 />
-                <Button type="submit">Login</Button>
+                <Button type="submit">Signup</Button>
             </form>
         </div>
     )

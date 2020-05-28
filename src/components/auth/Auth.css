@@ -50,6 +50,27 @@
     -webkit-text-fill-color: #fff !important;
 }
 
+.Auth-error-box{
+    background-color: rgba(255, 149, 149, 0.116);
+    margin: 1rem 0 ;
+    color: rgb(214, 214, 214);
+    padding: 1rem 2rem;
+    text-align: center;
+    border-left: 3px solid rgb(212, 73, 73);
+    /* border-radius: 1rem; */
+}
+.Auth-error-box p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.25rem;
+    line-height: 150%;
+}
+.Auth-error-box p svg {
+    color: rgb(212, 73, 73);
+    font-size: 1.5rem;
+}
 @media screen and (max-width : 576px) {
     .Auth-form-container {
         padding: 0.5rem 1rem;
