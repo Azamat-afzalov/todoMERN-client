@@ -6,12 +6,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-
-<React.StrictMode>
-    <Router>
-    <App />
-    </Router>
-</React.StrictMode>,
+    <React.StrictMode>
+        <Router>
+        <App />
+        </Router>
+    </React.StrictMode>,
 document.getElementById('root')
 );
 

@@ -46,6 +46,7 @@ const Signup = () => {
                 throw errors;
             }
             const {_id , token} = data.createUser;
+            console.log(_id , token)
             authDispatch({type : "SIGNUP_SUCCESS", payload : { _id , token }});
             login( _id, token);
             setIsLoading(false);

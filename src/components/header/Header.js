@@ -1,13 +1,12 @@
-import React, {useContext , useState} from 'react';
+import React, {useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
 import authContext from '../../context/AuthContext';
 import {Link} from 'react-router-dom';
+import Logo from './Logo';
 import './header.css';
 
-const Header = () => {
-    // console.log('Header renders');
-    const {authState,authDispatch} = useContext(authContext);
-    // const [auth, setAuth] = useState(authState.isAuth);
+const Header = React.memo(() => {
+    const { authState, authDispatch} = useContext(authContext);
     const { logout } = useAuth();
     const handleLogout = () => {
         logout();
@@ -15,7 +14,7 @@ const Header = () => {
     }
     return (
         <header className='Header'>
-            <Link to="/" className="Logo">Planner</Link>
+            <Logo/>
             <ul className="Header-ul">
                 {
                     !authState.isAuth ? (
@@ -29,7 +28,7 @@ const Header = () => {
                     </>
                     ):(
                         <li className="Header-li">
-                            <a className="Header-link" onClick={handleLogout}>Logout</a>
+                            <span className="Header-link" onClick={handleLogout}>Logout</span>
                         </li>
                     )
                 }
@@ -38,6 +37,6 @@ const Header = () => {
             </ul>
         </header>
     )
-}
+})
 
 export default React.memo(Header);

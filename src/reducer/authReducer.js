@@ -1,3 +1,4 @@
+
 export default function authReducer(state , action) {
     switch (action.type) {
         case "SET_AUTH" : {
@@ -23,9 +24,9 @@ export default function authReducer(state , action) {
         case "LOGIN_SUCCESS":
             if( action.payload._id && action.payload.token){
                 return {
-                    userId : action.payload_id,
+                    userId : action.payload._id,
                     isAuth : true,
-                    token : action.payloadtoken,
+                    token : action.payload.token,
                     errors : null
                 }
             }

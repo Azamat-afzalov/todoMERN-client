@@ -1,10 +1,11 @@
 import React, {useState, useCallback } from 'react';
+import useAuth from '../../hooks/useAuth';
 import Button from '../uiElements/Button';
 import Input from '../uiElements/Input';
 import './Form.css';
 
 const TodoAddForm = React.memo(({dispatch}) => {
-
+    const {token} = useAuth();
     // console.log('TodoAddForm rendering');
     const [input, setInput] = useState('');
     const inputHandler = useCallback((e) => {
@@ -31,7 +32,8 @@ const TodoAddForm = React.memo(({dispatch}) => {
                     const response = await fetch('http://localhost:5000/graphql' , {
                         method : "POST",
                         headers : {
-                            'Content-Type' : 'application/json'
+                            'Content-Type' : 'application/json',
+                            'Authorization' : `Bearer ${token}`
                         },
                         body: JSON.stringify(graphqlQuery)
                     });

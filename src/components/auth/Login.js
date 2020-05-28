@@ -10,14 +10,14 @@ import {MdErrorOutline} from 'react-icons/md';
 import './Auth.css';
 
 const Login = () => {
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const {authState, authDispatch} = useContext(authContext);
     const { login } = useAuth();
     const history = useHistory();
     const onSubmit = async formData => {
         setIsLoading(true);
-        const {username ,email, password} = formData;
+        const { email, password} = formData;
         const graphqlQuery = {
             query :`
                 mutation {
@@ -44,6 +44,7 @@ const Login = () => {
                 throw errors;
             }
             const {_id , token} = data.loginUser;
+            console.log(_id , token)
             authDispatch({type : "LOGIN_SUCCESS", payload : { _id , token }});
             login( _id, token);
             setIsLoading(false);

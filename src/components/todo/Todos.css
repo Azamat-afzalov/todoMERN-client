@@ -7,6 +7,15 @@
     width: 100%;
     font-size: 1.25rem;
 }
+.TodoList-not-found {
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
+    /* background-color: #abadb3; */
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgb(44, 53, 70);
+}
 
 .Todo-li{
     display: flex;
