@@ -47,12 +47,11 @@ const TodoAddForm = React.memo(({dispatch}) => {
                 } catch (errors) {
                     dispatch({type : "ADD_TODO_FAILED", payload:errors});
                 }
-
             }
             addTodo();
             setInput('');
         }
-    },[input,dispatch]);
+    },[input,dispatch,token]);
 
     return (
         <form className='TodoAddForm-form' autoComplete="off" onSubmit={submitHandler}>

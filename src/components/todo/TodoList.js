@@ -5,7 +5,6 @@ import "./Todos.css";
 
 const TodoList = ({todos, deleteTodo, checkTodo, dispatch}) => {
     // console.log('TodoList rendering');
-    console.log(todos);
     if (todos.length > 0) {
         return (
             <ul className='TodoList-ul'>
@@ -14,7 +13,6 @@ const TodoList = ({todos, deleteTodo, checkTodo, dispatch}) => {
                         key={todo._id}
                         id={todo._id}
                         isCompleted={todo.isCompleted}
-                        // deleteTodo={deleteTodo}
                         dispatch={dispatch}
                     >
                         {todo.title}

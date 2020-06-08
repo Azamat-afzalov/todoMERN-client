@@ -1,0 +1,49 @@
+.Modal-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+}
+.Modal{
+    background: white;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 50%;
+    height: 30%;
+}
+
+.Modal-actions{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    width: 100%;
+}
+
+
+.Modal-content{
+    width: 100%;
+    display: block;
+    padding: 1.25rem;
+    font-size: 1.25rem;
+    color: darkred;
+    padding: 1rem;
+
+}
+.Modal-header{
+    width: 100%;
+    padding: 1.25rem;
+    background: rgb(55, 66, 87);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.5rem;
+}

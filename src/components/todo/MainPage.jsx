@@ -1,32 +1,40 @@
-import React, {useContext,useEffect} from 'react';
-import AuthContext from '../../context/AuthContext.js';
-import TodoList from './TodoList.js';
+import React, { useContext, useEffect } from 'react';
+import globalContext from '../../context/globalContext.js';
+import Modal from "../uiElements/Modal/Modal";
+import TodoList  from './TodoList.js';
 import TodoAddForm from './TodoAddForm';
 import LoadingSpinner from './../uiElements/LoadingSpinner';
-
-import './../../App.css';
+import './MainPage.css';
+import modalContext from "../../context/modalContext";
+import Button from "../uiElements/Button";
+// import './../../App.css';
 
 const MainPage = () => {
-    const {authState , todoState,todoDispatch } =  useContext(AuthContext);
+    const {authState, todoState, todoDispatch } =  useContext(globalContext);
+    const { modal , toggleModal, handleModal, modalContent, dismissModal } = useContext(modalContext);
+    console.log(authState.errors);
     const token = authState.token;
+    const closeModal = () =>{
+        console.log('clearErrors');
+        dismissModal()
+    }
     // console.log('authState',authState);
     useEffect(() => {
         const graphqlQuery = {
-        query : `
-            {
-                getTodos {
-                    todos{
-                        _id
-                        title
-                        isCompleted
+            query : `
+                {
+                    getTodos {
+                        todos{
+                            _id
+                            title
+                            isCompleted
+                    }
                 }
-            }
-            }
-        `
+                }
+            `
         };
         document.title = "Todo app";
         async function fetchData() {
-            console.log("FETCH DATA")
             try {
                 const res = await fetch('http://localhost:5000/graphql', {
                     method : "POST",
@@ -47,44 +55,46 @@ const MainPage = () => {
                         isLoading : false
                     }
                 });
-                console.log("FETCHED")
-            } catch (errors) {
-                console.log("ERRORS : ", errors)
+            }
+            catch (errors) {
+
+                handleModal(errors);
                 todoDispatch({
                     type : "FETCH_TODOS_FAILED",
                     payload : {
                         errors : errors,
                         isLoading : false
                     }
-                })
+                });
+
             }
         }
-        if(token) {
-            console.log('TOKEN EXISTS',token);
+        if(authState.isAuth){
+            console.log('Fetching todos');
             fetchData();
         }
-    }, [token, todoDispatch]);
 
+    }, [token, todoDispatch]);
+    const actionButtons = (
+        <>
+            <Button onClick={dismissModal}>
+                Close
+            </Button>
+        </>
+    );
     return (
-        <div className="App">
+        <div className="MainPage">
             <TodoAddForm dispatch={todoDispatch}/>
-            { todoState.isLoading && <LoadingSpinner/>}
-            {!todoState.isLoading && todoState.errors ? (
-                <div>
-                {
-                    todoState.errors.map(error => (
-                    <p key={error.message}>
-                        {error.message}
-                    </p>
-                    ))
-                }
-                </div>) :
-                (<TodoList
-                    todos={todoState.todos}
-                    dispatch={todoDispatch}
-                />)}
+            { todoState.isLoading && todoState.todos && <LoadingSpinner/>}
+            {!(todoState.isLoading || todoState.errors) && <TodoList
+                todos={todoState.todos}
+                dispatch={todoDispatch}
+            /> }
+
         </div>
     )
 }
 
-export default MainPage
+export default MainPage;
+
+

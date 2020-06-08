@@ -1,4 +1,3 @@
-
 export default function authReducer(state , action) {
     switch (action.type) {
         case "SET_AUTH" : {
@@ -7,12 +6,10 @@ export default function authReducer(state , action) {
                 isAuth : action.payload.isAuth,
                 token : action.payload.token,
                 errors : action.payload.error || null
-            }
-        }
+            }}
         case "SIGNUP_SUCCESS":
             // const { _id, token } = action.payload;
             if( action.payload._id && action.payload.token){
-
                 return {
                     userId : action.payload._id,
                     isAuth : true,
@@ -20,7 +17,7 @@ export default function authReducer(state , action) {
                     errors : null
                 }
             }
-            return state;
+            break;
         case "LOGIN_SUCCESS":
             if( action.payload._id && action.payload.token){
                 return {
@@ -30,6 +27,7 @@ export default function authReducer(state , action) {
                     errors : null
                 }
             }
+            break;
         case "SIGNUP_FAILED":
             return {
                 ...state,
@@ -47,6 +45,7 @@ export default function authReducer(state , action) {
                 userId : null,
                 errors : null
             }
+
         default:
             return state;
     }

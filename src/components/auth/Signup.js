@@ -1,6 +1,6 @@
 import React , {useState , useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import authContext from '../../context/AuthContext';
+import authContext from '../../context/globalContext';
 import useAuth from '../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import Button from '../uiElements/Button';

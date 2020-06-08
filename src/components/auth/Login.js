@@ -1,6 +1,6 @@
 import React ,{useState, useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import authContext from '../../context/AuthContext';
+import authContext from '../../context/globalContext';
 import useAuth from '../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import Button from '../uiElements/Button';
@@ -44,13 +44,13 @@ const Login = () => {
                 throw errors;
             }
             const {_id , token} = data.loginUser;
-            console.log(_id , token)
+            // console.log(_id , token)
             authDispatch({type : "LOGIN_SUCCESS", payload : { _id , token }});
             login( _id, token);
             setIsLoading(false);
             history.push('/');
         } catch (error) {
-            console.log(error);
+            console.log('Error',error);
             authDispatch({type: "LOGIN_FAILED" , payload : error });
             setIsLoading(false);
         }
@@ -59,6 +59,7 @@ const Login = () => {
         <div className='Auth-form-container'>
             <h2>Login</h2>
             {isLoading && <LoadingSpinner/>}
+
             <form onSubmit={handleSubmit(onSubmit)} className='Auth-form'>
                 {authState.errors &&
                     <div className="Auth-error-box">

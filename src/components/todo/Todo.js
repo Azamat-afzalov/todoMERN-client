@@ -1,4 +1,5 @@
-import React, {useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
+import globalContext from '../../context/globalContext';
 import {FiTrash} from 'react-icons/fi';
 import {MdDone} from 'react-icons/md';
 import './Todos.css';
@@ -6,7 +7,8 @@ import './Todos.css';
 const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
     // console.log(`Todo ${children} is rendering`);
     // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
-
+    const {authState} = useContext(globalContext);
+    const {token} = authState;
     const deleteHandler =  useCallback(() =>{
         (async function () {
             const graphqlQuery = {
@@ -23,7 +25,8 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
                 const response = await fetch('http://localhost:5000/graphql' , {
                     method : "POST",
                     headers : {
-                        'Content-Type' : 'application/json'
+                        'Content-Type' : 'application/json',
+                        'Authorization' : `Bearer ${token}`
                     },
                     body: JSON.stringify(graphqlQuery)
                 });
@@ -37,7 +40,7 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
                 dispatch({type : "DELETE_TODO_FAILED", payload: errors});
             }
         })()
-    },[id,dispatch])
+    },[id,dispatch,token])
 
     const checkHandler = useCallback(() => {
         (async function() {
@@ -56,7 +59,8 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
                 const response = await fetch('http://localhost:5000/graphql', {
                     method : "POST",
                     headers : {
-                        'Content-Type' : 'application/json'
+                        'Content-Type' : 'application/json',
+                        'Authorization' : `Bearer ${token}`
                     },
                     body : JSON.stringify(graphqlQuery)
                 });
@@ -73,7 +77,7 @@ const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
 
         })()
 
-    },[id,dispatch]);
+    },[id,dispatch,token]);
 
     return (
         <li

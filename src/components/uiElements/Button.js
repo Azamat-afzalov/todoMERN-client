@@ -1,9 +1,9 @@
 import React from 'react';
 import './Button.css';
 
-const Button = React.memo(({children,className,type}) => {
+const Button = React.memo(({children,className,type,onClick}) => {
     return (
-        <button type={type} className={`Button ${className ? className : ''}`}>{children}</button>
+        <button type={type} className={`Button ${className ? className : ''}`} onClick={onClick}>{children}</button>
     )
 })
 

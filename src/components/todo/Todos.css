@@ -16,7 +16,6 @@
     font-weight: 600;
     color: rgb(44, 53, 70);
 }
-
 .Todo-li{
     display: flex;
     justify-content: space-between;
@@ -64,19 +63,27 @@
     padding: 0.5rem;
     border-radius: 50%;
 }
-
 .Todo-icon-box-trash:hover{
     color: rgb(235, 47, 47);
     border-color: rgb(235, 47, 47);
 }
-
 .Todo-icon-box-done:hover{
     color: rgb(14, 168, 9);
     border-color: rgb(14, 168, 9);
 }
-
 @media(hover:hover){
     .Todo-li:hover{
         background-color: #f6f6f6;
     }
 }
+
+/* @media not all and (pointer: coarse) {
+    .Todo-icon-box-trash:hover {
+        color: #222222;
+        border-color: #222222;
+    }
+    .Todo-icon-box-done:hover {
+        color: #222222;
+        border-color: #222222;
+    }
+} */

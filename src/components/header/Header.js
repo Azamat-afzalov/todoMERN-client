@@ -1,12 +1,12 @@
 import React, {useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
-import authContext from '../../context/AuthContext';
+import globalContext from '../../context/globalContext';
 import {Link} from 'react-router-dom';
 import Logo from './Logo';
 import './header.css';
 
 const Header = React.memo(() => {
-    const { authState, authDispatch} = useContext(authContext);
+    const { authState, authDispatch} = useContext(globalContext);
     const { logout } = useAuth();
     const handleLogout = () => {
         logout();
@@ -32,11 +32,9 @@ const Header = React.memo(() => {
                         </li>
                     )
                 }
-
-
             </ul>
         </header>
     )
 })
 
-export default React.memo(Header);
+export default Header;
