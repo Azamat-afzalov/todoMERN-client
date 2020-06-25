@@ -1,24 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-import globalContext from '../../context/globalContext.js';
-import Modal from "../uiElements/Modal/Modal";
-import TodoList  from './TodoList.js';
-import TodoAddForm from './TodoAddForm';
-import LoadingSpinner from './../uiElements/LoadingSpinner';
-import './MainPage.css';
-import modalContext from "../../context/modalContext";
-import Button from "../uiElements/Button";
-// import './../../App.css';
+import globalContext from '../../../context/globalContext.js';
+import TodoList  from '../../todo/TodoList.js';
+import TodoAddForm from '../../todo/TodoAddForm';
+import LoadingSpinner from '../../uiElements/LoadingSpinner';
+import './TodoPage.css';
+import modalContext from "../../../context/modalContext";
 
-const MainPage = () => {
+
+const TodoPage = () => {
     const {authState, todoState, todoDispatch } =  useContext(globalContext);
-    const { modal , toggleModal, handleModal, modalContent, dismissModal } = useContext(modalContext);
-    console.log(authState.errors);
+    // const {handleModal} = useContext(modalContext);
     const token = authState.token;
-    const closeModal = () =>{
-        console.log('clearErrors');
-        dismissModal()
-    }
-    // console.log('authState',authState);
     useEffect(() => {
         const graphqlQuery = {
             query : `
@@ -57,8 +49,7 @@ const MainPage = () => {
                 });
             }
             catch (errors) {
-
-                handleModal(errors);
+                // handleModal(errors);
                 todoDispatch({
                     type : "FETCH_TODOS_FAILED",
                     payload : {
@@ -74,18 +65,12 @@ const MainPage = () => {
             fetchData();
         }
 
-    }, [token, todoDispatch]);
-    const actionButtons = (
-        <>
-            <Button onClick={dismissModal}>
-                Close
-            </Button>
-        </>
-    );
+    }, [token, todoDispatch, authState.isAuth]);
     return (
         <div className="MainPage">
             <TodoAddForm dispatch={todoDispatch}/>
-            { todoState.isLoading && todoState.todos && <LoadingSpinner/>}
+            {!authState.isAuth && <div className='TodoList-not-found'>Please login to add todos</div>}
+            { todoState.isLoading && todoState.todos && authState.isAuth && <LoadingSpinner/>}
             {!(todoState.isLoading || todoState.errors) && <TodoList
                 todos={todoState.todos}
                 dispatch={todoDispatch}
@@ -95,6 +80,6 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+export default TodoPage;
 
 

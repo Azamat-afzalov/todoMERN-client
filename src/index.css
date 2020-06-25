@@ -11,7 +11,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Nunito','Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(55, 66, 87 ,0.35);
+  background-color: rgba(55, 66, 87 ,0.3);
 }
 #root{
   min-height: 100%;

@@ -3,19 +3,19 @@ import React from 'react';
 export default function() {
     const [modal, setModal] = React.useState(false);
     const [modalContent, setModalContent] = React.useState(null);
-
-    // console.log(modal, modalContent);
-
     const handleModal = (content) => {
-        console.log(content);
-        setModal(true);
-        setModalContent(content);
-    };
 
+        console.log('HANDLE MODAL' , content);
+        console.log(modal)
+        setModalContent(content);
+        setModal(true);
+    };
+    console.log('MODAL',modal);
     const dismissModal = () => {
+        console.log('DISMISS MODAL');
         setModal(false);
         setModalContent(null);
     }
 
-    return { modal, toggleModal : setModal , modalContent, handleModal, dismissModal };
+    return { modal, modalContent, handleModal, dismissModal };
 }

@@ -5,8 +5,7 @@ import {MdDone} from 'react-icons/md';
 import './Todos.css';
 
 const Todo = React.memo(({id, children, isCompleted , dispatch}) => {
-    // console.log(`Todo ${children} is rendering`);
-    // console.log(isCompleted , id, children, isCompleted , deleteTodo , checkTodo);
+
     const {authState} = useContext(globalContext);
     const {token} = authState;
     const deleteHandler =  useCallback(() =>{

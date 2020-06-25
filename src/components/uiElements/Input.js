@@ -18,7 +18,7 @@ const Input = React.forwardRef(
 ) => {
     // console.log(error);
     return (
-    <div className="Input-Box">
+    <div className="Input-Box" >
         {label && <label htmlFor={id}>{label}</label>}
         <input
             id={id}

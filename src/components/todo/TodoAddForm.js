@@ -1,11 +1,14 @@
 import React, {useState, useCallback } from 'react';
 import useAuth from '../../hooks/useAuth';
+import useModal from "../../hooks/useModal";
 import Button from '../uiElements/Button';
 import Input from '../uiElements/Input';
 import './Form.css';
 
 const TodoAddForm = React.memo(({dispatch}) => {
     const {token} = useAuth();
+    // const { modal,handleModal } = useModal();
+
     // console.log('TodoAddForm rendering');
     const [input, setInput] = useState('');
     const inputHandler = useCallback((e) => {
@@ -46,6 +49,9 @@ const TodoAddForm = React.memo(({dispatch}) => {
                     dispatch({type : "ADD_TODO_SUCCESS",  payload :{...todo }})
                 } catch (errors) {
                     dispatch({type : "ADD_TODO_FAILED", payload:errors});
+                    // handleModal(errors);
+                    // console.log(modal);
+                    console.log(errors);
                 }
             }
             addTodo();

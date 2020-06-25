@@ -1,0 +1,37 @@
+.HabitAddForm {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 4rem;
+    justify-content: space-between;
+}
+.HabitAddForm > * {
+    margin: 0;
+    height: 100%;
+}
+.HabitAddForm-input {
+    /*height: 100%;*/
+    flex-basis: 75%;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: rgb(228, 228, 228);
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
+    border-radius: 1rem;
+    outline: none;
+    color: rgb(13, 34, 72);
+    border: none;
+
+    /*font-family: 'Nunito';*/
+}
+.HabitAddForm-submit-btn{
+    display: block;
+    flex-basis: 20%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    border-radius: 1rem;
+    /*padding: 2rem;*/
+}

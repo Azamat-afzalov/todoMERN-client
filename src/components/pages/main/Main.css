@@ -1,0 +1,53 @@
+.Main {
+    padding: 2rem 10%;
+}
+.Main-header{
+    font-size: 3.5rem;
+    color: rgba(44, 53, 70, 0.7);
+    letter-spacing: 5px;
+
+
+}
+.Main-title{
+    font-size: 2rem;
+    color: rgba(44, 53, 70, 0.9);
+    letter-spacing: 2px;
+}
+.Main-menu{
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+
+}
+.Main-menu-box{
+    flex-basis: 23%;
+    margin:  2rem 0;
+    background: rgba(44,53,70,0.5);
+    padding: 5rem 1rem;
+    box-shadow: 0 0 10px rgba(44,53,70,0.5);
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 992px) {
+    /*.Main-menu{*/
+    /*    justify-content: flex-start;*/
+    /*}*/
+    .Main-menu-box{
+        flex-basis: 30%;
+        /*margin:  3rem 3rem 0 0 ;*/
+    }
+}
+@media screen and (max-width: 768px){
+    .Main-menu-box{
+        flex-basis: 45%;
+
+    }
+}
+@media screen and (max-width: 576px){
+    .Main-menu-box{
+        flex-basis: 100%;
+    }
+}

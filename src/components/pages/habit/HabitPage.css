@@ -1,0 +1,9 @@
+.Habit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    margin: auto;
+    height: 100%;
+    padding: 1.5rem 10rem;
+}
